@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet"/>
+        <link href="../css/style.css" rel="stylesheet"/>
+    </h:head>
+    <h:body>
+
+
+        <h:form   enctype="multipart/form-data">
+
+
+            <script src="js/jquery.min.js"></script>
+            <script src="js/bootstrap.min.js"></script>
+
+            <nav class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                          <a class="navbar-brand" href="QuemSomos.xhtml">Estilo seu</a>
+                    </div>
+                    <div id="navbar" class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav navbar-right">
+
+                              <li><a class="navbar-brand" href="Menu.xhtml">Tela de Menu</a> </li>
+                            <li><a class="navbar-brand" href="TelaProdutoCadastra.xhtml">Tela de Cadastro</a> </li>
+                            <li><a class="navbar-brand" href="TelaProdutoLista.xhtml">Tela de Listagem</a> </li>
+                            <li><a href="#">Opções</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+            <div id="main" class="container-fluid">
+
+                <h:messages id="messages" />
+
+                <h3 class="page-header"></h3>
+                <h3 class="page-header">Alterar Produtos</h3>
+
+                <div  class="form-group col-md-4">
+                    <h:outputLabel value="Nome da peça"    />
+                    <h:inputText   value="#{produtoBean.produto.nome}" class="form-control"/> 
+
+                </div>
+
+                <div  class="form-group col-md-4">
+                    <h:outputLabel value="Tamanho"   />
+                    <h:inputText    value="#{produtoBean.produto.tipo}" class="form-control" />
+                </div>
+
+                <div  class="form-group col-md-4">
+                    <h:outputLabel value="Quantidade em Estoque"  />
+                    <h:inputText  value="#{produtoBean.produto.quantidade}" class="form-control" />
+                </div>
+
+                <div  class="form-group col-md-4">
+                    <h:outputLabel value="Marca"   />
+                    <h:inputText  value="#{produtoBean.produto.marca}" class="form-control" />
+                </div>
+
+                <div  class="form-group col-md-4">
+                    <h:outputLabel value="Valor"   />
+                    <h:inputText  value="#{produtoBean.produto.valor}" class="form-control" />
+                </div>
+                
+                <div  class="form-group col-md-4">
+                    <h:outputLabel value="Tipo de Tecido"   />
+                    <h:inputText  value="#{produtoBean.produto.tipoTecido}" class="form-control" />
+                </div>
+                <div  class="form-group col-md-4">
+
+                    <h:messages id="msg" />
+                    <h:outputLabel value="Foto:"  />
+                    <p:fileUpload id="uploadImagem" mode="advanced"
+                                  update="messages,imagem" auto="true" label="Selecionar"
+                                  fileUploadListener="#{produtoBean.enviarFoto}"
+                                  allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+                    <h:outputLabel value="" />
+                    <p:graphicImage value="#{produtoBean.produto.imagem}"
+                                    id="imagem" style="width:60px;height:60px" cache="false" />
+
+                </div>
+
+                <div  class="form-group col-md-4">
+                    <h:outputLabel value="Filial do Produto  " />
+                    <h:selectOneMenu  id="loja"  value="#{produtoBean.produto.loja}"  converter="#{lojaConverter}">
+                        <f:selectItems  value="#{produtoBean.itenslojas}" var="lojaItem" itemValue="#{lojaItem}"
+                                        itemLabel="#{lojaItem.nome}" />
+
+                    </h:selectOneMenu>
+                </div>
+
+                <div class="col-md-12">
+
+                    <h:commandButton value="alterar dados"  action="#{produtoBean.alterar(produtoBean.produto)}" class="btn btn-primary"/>
+                </div>
+
+            </div>
+
+        </h:form>
+
+    </h:body>
+</html>
+

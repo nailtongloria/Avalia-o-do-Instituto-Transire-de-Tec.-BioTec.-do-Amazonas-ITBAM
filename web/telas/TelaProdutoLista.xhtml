@@ -1,0 +1,156 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet"/>
+        <link href="../css/style.css" rel="stylesheet"/>
+    </h:head>
+    <h:body>
+
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+
+        <h:form>
+            <nav class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                          <a class="navbar-brand" href="QuemSomos.xhtml">Estilo seu</a>
+                    </div>
+                    <div id="navbar" class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a class="navbar-brand" href="Menu.xhtml">Tela de Menu</a> </li>
+                            <li><a class="navbar-brand" href="TelaProdutoLista.xhtml">Tela de Listagem</a> </li>
+                            <li><a class="navbar-brand" href="TelaProdutoCadastra.xhtml">Tela de Cadastro</a> </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </nav>
+
+            <div class="container">
+
+
+                <h3 class="page-header"></h3>
+
+                <div class="col-md-3">
+                    <h3 class="page-header"></h3>
+                    <h2>Pesquisa Produtos</h2>
+                </div>
+                <div class="col-md-3">
+
+                    <h3 class="page-header"></h3>
+                    <h:inputText   value="#{produtoBean.produto.nome}" class="form-control" />
+                </div>
+
+                <div class="col-md-3">
+                    <h3 class="page-header"></h3>
+                    <h:commandButton value="Pesquisar Produtos"   action="#{produtoBean.pesquisarProduto()}"  class="btn btn-primary pull-right"/>
+
+                </div>
+
+                <div class="col-md-3">
+                    <h3 class="page-header"></h3>
+                    <h:commandButton value="Atualizar a Lista de Produtos"   action="#{produtoBean.carregarProdutos()}"  class="btn btn-primary pull-right"/>
+
+                </div>
+
+            </div>
+        </h:form>
+        <div class="container">
+            <h:form   enctype="multipart/form-data">
+
+                <h:messages id="messages" />
+                <h:dataTable  value="#{produtoBean.produtos}"   var="produtoLinha" styleClass="table" >
+
+
+
+                    <h:column>
+                        <f:facet name="header"> Nome da Peça</f:facet>
+                            #{produtoLinha.nome}
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header"> Tamanho</f:facet>
+                            #{produtoLinha.tipo}
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header"> Quantidade em Estoque</f:facet>
+                            #{produtoLinha.quantidade}
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header"> Marca </f:facet>
+                            #{produtoLinha.marca}
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header"> Valor </f:facet>
+                            #{produtoLinha.valor}
+                    </h:column>
+                    
+                       <h:column>
+                        <f:facet name="header"> Tipo de Tecido </f:facet>
+                            #{produtoLinha.tipoTecido}
+                    </h:column>
+
+
+                    <p:column  headerText="imagem">
+                        <f:facet name="header"> Imagem</f:facet>
+                        <p:graphicImage value="#{produtoBean.imagemDinamica}"
+                                        style="width:100px;height:100px" cache="false">
+                            <f:param name="id_imagem" value="#{produtoLinha.id}" />
+                        </p:graphicImage>
+                    </p:column>
+
+                    <h:column>
+                        <f:facet name="header"> Filial</f:facet>
+                            #{produtoLinha.loja.nome}
+                    </h:column>
+                    
+                    <h:column>
+                        <f:facet name="header"> Bairro</f:facet>
+                            #{produtoLinha.loja.bairro.nome}
+                    </h:column>
+
+                     <h:column>
+                        <f:facet name="header"> Cidade</f:facet>
+                            #{produtoLinha.loja.bairro.cidade.nome}
+                    </h:column>
+                    
+                     <h:column>
+                        <f:facet name="header"> Bairro</f:facet>
+                            #{produtoLinha.loja.bairro.cidade.estado.nome}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Excluir</f:facet>
+                        <h:commandLink value="excluir" action="#{produtoBean.excluir(produtoLinha)}"/>
+
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Editar</f:facet>
+                        <h:commandLink value="editar" action="TelaProdutoAltera">
+                            <f:setPropertyActionListener value="#{produtoLinha}" target="#{produtoBean.produto}"/>
+                        </h:commandLink>
+                    </h:column>
+
+                </h:dataTable>
+            </h:form>
+
+
+        </div>
+
+    </h:body>
+</html>
+
